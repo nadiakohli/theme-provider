@@ -5,15 +5,16 @@ const useThemeDetector = () => {
 
   const [isDarkTheme, setIsDarkTheme] = useState(getMatchMedia().matches);
   
-  const mqListener = (e) => {
+  const mediaQueryListener = (e) => {
     setIsDarkTheme(e.matches);
   };
   
   useEffect(() => {
-    const mq = getMatchMedia();
-    mq.addEventListener('change', mqListener);
+    const mediaQuery = getMatchMedia();
+    mediaQuery.addEventListener('change', mediaQueryListener);
+
     return () => {
-      mq.removeEventListener('change', mqListener);
+      mediaQuery.removeEventListener('change', mediaQueryListener);
     };
   }, []);
   return isDarkTheme;

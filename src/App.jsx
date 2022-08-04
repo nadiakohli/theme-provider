@@ -1,57 +1,32 @@
-import React, { useState } from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import { useContext } from 'react';
 
-// Themes
-import { lightTheme, darkTheme } from 'themes.js';
+// Context
+import { ThemeContext } from 'context/ThemeContext';
 
 // Components
 import Toggle from 'components/Toggle';
 
-//Styles
-const StyledApp = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  color: ${(props) => props.theme.color};
-  background-color: ${(props) => props.theme.background};
-`;
-
-const ToggleWrap = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  & h1 {
-    font-size: 28px;
-  }
-
-  & div {
-    font-size: 18px;
-    padding: 25px 10px;
-  }
-`;
+// Styles
+import { 
+	Wrapper,
+	H1,
+	H2,
+	ToggleWrap,
+} from 'styled';
 
 const App = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+	const { theme } = useContext(ThemeContext);
 
-  const onToggleMode = (value) => {
-    setIsDarkMode(value);
-  };
-
-  return (
-    <ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
-      <StyledApp>
-        <h1>Current theme: {isDarkMode ? 'dark' : 'light'}</h1>
-        <ToggleWrap>
-          <div>Dark</div>
-          <Toggle onToggleMode={onToggleMode} />
-          <div>Light</div>
-        </ToggleWrap>
-      </StyledApp>
-    </ThemeProvider>
-  );
+	return (
+		<Wrapper theme={theme}>
+			<H1 theme={theme}>Current theme: {theme} mode</H1>
+			<ToggleWrap>
+				<H2 theme={theme}>Dark</H2>
+				<Toggle />
+				<H2 theme={theme}>Light</H2>
+			</ToggleWrap>
+		</Wrapper>
+	)
 };
 
 export default App;

@@ -1,29 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import { useContext } from 'react';
 
-// Hooks
-import useThemeDetector from 'hooks/useThemeDetector';
+// Context
+import { ThemeContext } from 'context/ThemeContext';
 
 // Styles
 import { Switch, Input, Circle } from './styled';
 
-const Toggle = ({ onToggleMode }) => {
-  const isDefaultTheme = useThemeDetector();
-  const [isDarkMode, setIsDarkMode] = useState(false);
+const Toggle = () => {
+  const { theme, onToggleTheme } = useContext(ThemeContext);
 
-  useEffect(() => {
-    if (!localStorage.getItem('theme')) {
-      setIsDarkMode(isDefaultTheme);
-      onToggleMode(isDefaultTheme);
-    } 
-  }, [isDefaultTheme]);
+  const isDarkMode = theme === 'dark' ? true : false;
 
   return (
     <Switch>
-      <Input type="checkbox" checked={isDarkMode} onChange={() => {
-        localStorage.setItem('theme', !isDarkMode ? 'dark' : 'light');
-        setIsDarkMode(!isDarkMode);
-        onToggleMode(!isDarkMode);
-      }} />
+      <Input type="checkbox" checked={isDarkMode} onChange={() => onToggleTheme()} />
       <Circle />
     </Switch>
   );
