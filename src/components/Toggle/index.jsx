@@ -9,11 +9,9 @@ import { Switch, Input, Circle } from './styled';
 const Toggle = () => {
   const { theme, onToggleTheme } = useContext(ThemeContext);
 
-  const isDarkMode = theme === 'dark' ? true : false;
-
   return (
     <Switch>
-      <Input type="checkbox" checked={isDarkMode} onChange={() => onToggleTheme()} />
+      <Input type="checkbox" checked={theme === 'dark'} onChange={onToggleTheme} />
       <Circle />
     </Switch>
   );

@@ -11,11 +11,10 @@ export const ThemeContext = createContext({
 const ThemeContextProvider = ({ children }) => {
 	const isDefaultDark = useThemeDetector();
 	const themeStorage = localStorage.getItem('theme');
-	const initialState = themeStorage === 'dark' || themeStorage === 'light'
-		? themeStorage
-		: isDefaultDark
-		? 'dark'
-		: 'light'
+	const initialState = () => {
+		if (themeStorage === 'dark' || themeStorage === 'light') return themeStorage;
+		return isDefaultDark ? 'dark': 'light';
+	}; 
 
 	const [theme, setTheme] = useState(initialState);
 
